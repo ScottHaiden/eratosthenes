@@ -3,7 +3,7 @@ use std::io::{BufWriter, Stdout, Write};
 fn to_ind(i: usize) -> usize { return (i - 3) / 2; }
 
 fn print_prime(out: &mut BufWriter<Stdout>, prime: u32) {
-    out.write_all(&prime.to_ne_bytes()).expect("write failed");
+    out.write_all(&prime.to_be_bytes()).expect("write failed");
 }
 
 fn mark_composites(nums: &mut Vec<bool>, prime: usize) {
