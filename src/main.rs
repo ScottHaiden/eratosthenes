@@ -1,6 +1,6 @@
 use std::io::{BufWriter, Stdout, Write};
 
-fn to_ind(i: usize) -> usize { return (i - 3) / 2; }
+const fn to_ind(i: usize) -> usize { return (i - 3) / 2; }
 
 fn print_prime(out: &mut BufWriter<Stdout>, prime: u32) {
     out.write_all(&prime.to_be_bytes()).expect("write failed");
@@ -17,11 +17,15 @@ fn mark_composites(nums: &mut Vec<bool>, prime: usize) {
     }
 }
 
+fn make_sieve() -> Vec<bool> {
+    const LEN: usize = to_ind(u32::MAX as usize) + 1;
+    return vec![false; LEN];
+}
+
 fn main() {
     let mut out = BufWriter::new(std::io::stdout());
 
-    let len = to_ind(u32::MAX as usize) + 1;
-    let mut nums = vec![false; len];
+    let mut nums = make_sieve();
 
     const LOW: usize = 3usize;
     const HIGH: usize = u32::MAX as usize;
